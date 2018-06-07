@@ -1,6 +1,6 @@
 package com.crealytics.reporting.rest;
 
-import com.crealytics.reporting.ReportDto;
+import com.crealytics.reporting.dto.ReportDto;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
