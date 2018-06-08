@@ -15,6 +15,9 @@ public class ReportUtil {
 
     private static final String REPORT_NAME_REGEX = "\\d{4}_(\\d{2})_report\\.csv";
 
+    /*
+    * month only exist in the report file name, extracting month as integer to be saved with records in DB as Month
+    * */
     public static Month extractMonthFromReportName(String name) throws Exception {
         Pattern p = Pattern.compile(REPORT_NAME_REGEX);
         Matcher m = p.matcher(name);

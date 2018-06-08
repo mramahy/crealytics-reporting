@@ -21,6 +21,10 @@ public class ReportResource {
     @Autowired
     private ReportService reportService;
 
+    /*
+    * rest call for reports month and site query params are not required if non is received the api will return all
+    * reports. if valid but unavailable params received the api will return empty list and success code.
+    * */
     @RequestMapping(value = "/reports",method = RequestMethod.GET)
     public Response<List<ReportDto>> getReports(@RequestParam(value = "month", required = false) String month,
                                                 @RequestParam(value = "site", required = false) String site) {

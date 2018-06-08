@@ -121,10 +121,4 @@ public class ReportService {
         return Site.of(site.toLowerCase());
     }
 
-    /*
-    * used for testing purposes
-    * */
-    public List<Report> findAllReports(){
-        return reportRepository.findAll();
-    }
 }

@@ -1,5 +1,9 @@
 package com.crealytics.reporting.dto;
 
+
+/*
+*  Dto response for report api
+* */
 public class ReportDto {
     String month;
     String site;

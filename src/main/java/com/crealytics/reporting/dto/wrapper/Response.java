@@ -1,5 +1,8 @@
 package com.crealytics.reporting.dto.wrapper;
 
+/*
+* response wrapper for rest api calls, can handle any type of response
+* */
 public class Response<T> {
 
     T response;

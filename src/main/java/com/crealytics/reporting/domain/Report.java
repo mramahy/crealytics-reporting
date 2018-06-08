@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/*
+* Entity bean for report table
+* */
 @Entity
 public class Report {
     @Id
