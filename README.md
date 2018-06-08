@@ -8,3 +8,7 @@ or you can use this command <code>java -jar path-to\reporting-0.0.1-SNAPSHOT.jar
 to view DB you can use this url (don't forget to start the app first :-) ): <code>http://localhost/h2</code> (its an in-memory DB) 
 I have also included swagger for API testing -and that's how I tested the REST service :S- and the url is: 
 <code>http://localhost:8080/swagger-ui.html#!/report45resource/getReportsUsingGET</code>
+
+# Notes
+
+also please note that I have made some assumptions like if there are no query params received site or month, the call will list all report entries and if the provided site and month are valid but unavailable, the call will return success with empty list.
