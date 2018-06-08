@@ -1,20 +1,21 @@
 package com.crealytics.reporting;
 
 import com.crealytics.reporting.service.ReportService;
-import com.crealytics.reporting.utils.ReportUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
-
-import java.io.File;
 
 
 @Component
 public class StartupApplicationListener implements ApplicationListener<ApplicationReadyEvent> {
     private static final Logger logger = LogManager.getLogger(ReportService.class);
+
+    @Value("${reports.path}")
+    private String path;
 
     @Autowired
     ReportService reportService;
@@ -27,7 +28,7 @@ public class StartupApplicationListener implements ApplicationListener<Applicati
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         logger.info("start loading data into database");
-        reportService.parseFilesAndSaveInDB(ReportUtil.getReportingFolderFiles());
+        reportService.parseFilesAndSaveInDB(path);
         logger.info("finished loading data into database");
     }
 }

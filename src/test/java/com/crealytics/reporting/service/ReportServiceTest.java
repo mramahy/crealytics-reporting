@@ -1,20 +1,14 @@
 package com.crealytics.reporting.service;
 
-import com.crealytics.reporting.domain.Report;
 import com.crealytics.reporting.repositories.ReportRepository;
-import com.crealytics.reporting.utils.ReportUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
-import static org.springframework.test.util.AssertionErrors.assertEquals;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 import static org.springframework.test.util.AssertionErrors.fail;
 
@@ -39,7 +33,7 @@ public class ReportServiceTest {
     @Test
     public void testDataLoaderService(){
         try{
-            reportService.parseFilesAndSaveInDB(ReportUtil.getReportingFolderFiles());
+            reportService.parseFilesAndSaveInDB("C:\\Users\\MOEL3\\workspace\\reporting\\src\\main\\resources\\reports");
             assertTrue("Service loaded successfully",true);
         }catch (Exception e){
             e.printStackTrace();

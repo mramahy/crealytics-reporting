@@ -4,19 +4,15 @@ import com.crealytics.reporting.domain.Report;
 import com.crealytics.reporting.domain.enums.Month;
 import com.crealytics.reporting.domain.enums.Site;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.stereotype.Component;
 
-import java.io.*;
-import java.net.URL;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
 public class ReportUtil {
 
-    private static final String REPORTS_FOLDER = "reports";
     private static final String REPORT_NAME_REGEX = "\\d{4}_(\\d{2})_report\\.csv";
 
     public static Month extractMonthFromReportName(String name) throws Exception {
@@ -28,12 +24,8 @@ public class ReportUtil {
         throw new Exception("invalid name format cannot extract month number for report with name: "+name);
     }
 
-    public static List<File> getReportingFolderFiles () {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        URL url = loader.getResource(REPORTS_FOLDER);
-        String path = url.getPath();
-        List<File> validFiles = validateFileNamesFormat(new File(path).listFiles());
-        return validFiles;
+    public static List<File> getReportingFolderFiles (String path) {
+        return validateFileNamesFormat(new File(path).listFiles());
     }
 
     /*

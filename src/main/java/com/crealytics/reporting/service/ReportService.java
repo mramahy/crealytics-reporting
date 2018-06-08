@@ -32,15 +32,16 @@ public class ReportService {
 
     private static final Logger logger = LogManager.getLogger(ReportService.class);
 
+
     @Autowired
     private ReportRepository reportRepository;
-
 
     /*
     * reportFileList: list of report files to bel loaded to the database
     * this function loop on record of each file, parse it and convert it to report object to be saved in the DB
     * */
-    public void parseFilesAndSaveInDB(List<File> reportFileList)  {
+    public void parseFilesAndSaveInDB(String path)  {
+        List<File> reportFileList = ReportUtil.getReportingFolderFiles(path);
         List<Report> reports = new ArrayList<>();
         for(File reportFile: reportFileList){
             try {
