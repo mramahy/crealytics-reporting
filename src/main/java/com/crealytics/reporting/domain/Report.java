@@ -1,5 +1,8 @@
 package com.crealytics.reporting.domain;
 
+import com.crealytics.reporting.domain.enums.Month;
+import com.crealytics.reporting.domain.enums.Site;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,9 +14,9 @@ public class Report {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
 
-    private String month;
+    private Month month;
 
-    private String site;
+    private Site site;
 
     private Long requests;
 
@@ -41,11 +44,11 @@ public class Report {
         this.id = id;
     }
 
-    public String getSite() {
+    public Site getSite() {
         return site;
     }
 
-    public void setSite(String site) {
+    public void setSite(Site site) {
         this.site = site;
     }
 
@@ -121,11 +124,11 @@ public class Report {
         this.eCPM = eCPM;
     }
 
-    public String getMonth() {
+    public Month getMonth() {
         return month;
     }
 
-    public void setMonth(String month) {
+    public void setMonth(Month month) {
         this.month = month;
     }
 }

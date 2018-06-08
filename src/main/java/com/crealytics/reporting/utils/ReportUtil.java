@@ -1,12 +1,13 @@
 package com.crealytics.reporting.utils;
 
 import com.crealytics.reporting.domain.Report;
+import com.crealytics.reporting.domain.enums.Month;
+import com.crealytics.reporting.domain.enums.Site;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.URL;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -18,11 +19,11 @@ public class ReportUtil {
     private static final String REPORTS_FOLDER = "reports";
     private static final String REPORT_NAME_REGEX = "\\d{4}_(\\d{2})_report\\.csv";
 
-    public static String extractMonthFromReportName(String name) throws Exception {
+    public static Month extractMonthFromReportName(String name) throws Exception {
         Pattern p = Pattern.compile(REPORT_NAME_REGEX);
         Matcher m = p.matcher(name);
         if (m.matches()){
-           return Month.of(Integer.parseInt(m.group(1))).name();
+           return Month.of(Integer.parseInt(m.group(1)));
         }
         throw new Exception("invalid name format cannot extract month number for report with name: "+name);
     }
@@ -40,7 +41,7 @@ public class ReportUtil {
     * @param: record, csv record
     * this method is to map report data to a Report object to be saved in the DB
     * */
-    public static Report buildReportFromCsvRecord(String month, CSVRecord record) throws Exception {
+    public static Report buildReportFromCsvRecord(Month month, CSVRecord record) throws Exception {
         String site = record.get("site");
         String requests = record.get("requests");
         String clicks = record.get("clicks");
@@ -51,16 +52,20 @@ public class ReportUtil {
         report.setMonth(month);
         report.setClicks(Long.parseLong(clicks));
         report.setConversions(Long.parseLong(conversions));
-        report.setSite(site);
+        report.setSite(Site.of(site.toLowerCase()));
         report.setRequests(Long.parseLong(requests));
         report.setRevenue(Double.parseDouble(revenue));
         report.setImpressions(Long.parseLong(impressions));
         report.setCr(MathUtil.getPercentage((float)report.getConversions(),(float)report.getImpressions()));
         report.setCtr(MathUtil.getPercentage((float)report.getClicks(),(float)report.getImpressions()));
         report.setFillRate(MathUtil.getPercentage((float)report.getImpressions(),(float)report.getRequests()));
-        Double eCPM = (report.getRevenue()*1000)/(double)report.getImpressions();
+        Double eCPM = MathUtil.round(report.getRevenue()*1000/(double)report.getImpressions(),2);
         report.seteCPM(eCPM);
         return report;
+    }
+
+    public static boolean isNumeric(String numericMonth){
+        return numericMonth.matches("\\d+");
     }
 
     private static List<File> validateFileNamesFormat(File[] files) {
